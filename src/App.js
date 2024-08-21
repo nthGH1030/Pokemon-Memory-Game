@@ -7,8 +7,19 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [listofPokemon, setPokemonList] = useState([]);
+  const [firstSelectedCard, setFirstSelectedCard] = useState();
 
-  //Populate cards compoenent array with pokemon data 
+  const selectFirstCard = (id) => {
+    setFirstSelectedCard(id);
+  }
+
+  const handleCardClick = async (id) => {
+    await fetchPokemonData();
+    selectFirstCard(id);
+    
+  }
+
+  //Populate cards compoenent array with pokemon data, shuffle it with Fisher and Yate shuffle
   const fetchPokemonData = async () => {
     const pokemonData = await getPokemon();
     for (let i = pokemonData.length - 1; i > 0; i--)
@@ -37,7 +48,8 @@ function App() {
   
    useEffect(() => {
     console.log(listofPokemon);
-  }, [listofPokemon]);
+    console.log(firstSelectedCard)
+  }, [listofPokemon, firstSelectedCard]);
   
   return (
     <div>
@@ -54,7 +66,11 @@ function App() {
 
       <div>
         {listofPokemon.map((pokemon) => {
-           return <Card key = {pokemon.id} id = {pokemon.id} sprites = {pokemon.sprites}/>
+           return <Card 
+            onClick = {() => handleCardClick(pokemon.id)} 
+            key = {pokemon.id} 
+            id = {pokemon.id} 
+            sprites = {pokemon.sprites}/>
         })}
       </div>
 

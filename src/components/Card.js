@@ -1,8 +1,9 @@
-const Card = ({id, sprites}) => {
+const Card = ({id, sprites, onClick}) => {
+    
 
     return (
         <div>
-            <span>
+            <span onClick = {onClick}>
                 <img src = {sprites} alt={`Pokemon ${id}`}/>
                 <p> ID: {id}</p>
             </span>
