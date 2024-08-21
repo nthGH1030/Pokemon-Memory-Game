@@ -39,7 +39,7 @@ function App() {
 
       <div>
         {listofPokemon.map((pokemon) => {
-           return <Card key = {pokemon.id} pokemon = {pokemon}/>
+           return <Card key = {pokemon.id} id = {pokemon.id} sprites = {pokemon.sprites}/>
         })}
       </div>
 

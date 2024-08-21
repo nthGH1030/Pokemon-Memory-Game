@@ -1,9 +1,9 @@
-const Card = (props) => {
+const Card = ({id, sprites}) => {
 
     return (
         <div>
-            <p> ID: {props.pokemon.id}</p>
-            <img src = {props.pokemon.sprites} alt={`Pokemon ${props.pokemon.id}`}/>
+            <p> ID: {id}</p>
+            <img src = {sprites} alt={`Pokemon ${id}`}/>
             
         </div>
     );
