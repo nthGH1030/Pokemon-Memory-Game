@@ -11,6 +11,21 @@ function App() {
   //Populate cards compoenent array with pokemon data 
   const fetchPokemonData = async () => {
     const pokemonData = await getPokemon();
+    for (let i = pokemonData.length - 1; i > 0; i--)
+      {
+        //Get a random index
+        let minIndex = 0
+        let maxIndex = pokemonData.length - 1
+        let randomIndex = Math.floor(Math.random() * (maxIndex - minIndex) + minIndex);
+        //Save the data in current iteration
+        let currentIndexIteration = pokemonData[i];
+        //Save the data in the swap position
+        let IndexIterationToSwap = pokemonData[randomIndex];
+        //Replace the data at the destination with the current iteration
+        pokemonData[randomIndex] = currentIndexIteration;
+        //Replace the current iteration data with the swapped data
+        pokemonData[i] = IndexIterationToSwap;
+      }
     setPokemonList(pokemonData);
     
   }

@@ -2,8 +2,11 @@ const Card = ({id, sprites}) => {
 
     return (
         <div>
-            <p> ID: {id}</p>
-            <img src = {sprites} alt={`Pokemon ${id}`}/>
+            <span>
+                <img src = {sprites} alt={`Pokemon ${id}`}/>
+                <p> ID: {id}</p>
+            </span>
+            
             
         </div>
     );
