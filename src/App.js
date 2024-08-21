@@ -7,15 +7,27 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [listofPokemon, setPokemonList] = useState([]);
-  const [firstSelectedCard, setFirstSelectedCard] = useState();
+  const [selectedCard, setCard] = useState("");
 
-  const selectFirstCard = (id) => {
-    setFirstSelectedCard(id);
+  const selectCard = (id) => {
+    setCard(id);
   }
 
   const handleCardClick = async (id) => {
     await fetchPokemonData();
-    selectFirstCard(id);
+    // if there is already an selected card, check if both match
+    if (selectedCard === "") {
+        setCard(id);
+      }
+    else if (selectedCard != id){ 
+      setScore(score + 1);
+      setCard(id);
+    }
+    else {
+      setBestScore(score);
+      setScore(0);
+    }
+    
     
   }
 
@@ -48,8 +60,8 @@ function App() {
   
    useEffect(() => {
     console.log(listofPokemon);
-    console.log(firstSelectedCard)
-  }, [listofPokemon, firstSelectedCard]);
+    console.log(selectedCard)
+  }, [listofPokemon, selectedCard]);
   
   return (
     <div>
