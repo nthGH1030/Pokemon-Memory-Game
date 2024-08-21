@@ -8,9 +8,22 @@ function App() {
   const [bestScore, setBestScore] = useState(0);
   const [listofPokemon, setPokemonList] = useState([]);
 
-  const pokemon = getPokemon(1);
-  
+  //Populate cards compoenent array with pokemon data 
+  const fetchPokemonData = async () => {
+    const pokemonData = await getPokemon();
+    setPokemonList(pokemonData);
+    
+  }
 
+  useEffect(() => {
+    fetchPokemonData();
+  }, []);
+
+  
+   useEffect(() => {
+    console.log(listofPokemon);
+  }, [listofPokemon]);
+  
   return (
     <div>
       <div>
@@ -25,7 +38,9 @@ function App() {
       </div>
 
       <div>
-        
+        {listofPokemon.map((pokemon) => {
+           return <Card key = {pokemon.id} pokemon = {pokemon}/>
+        })}
       </div>
 
       <div>
@@ -36,20 +51,30 @@ function App() {
   );
 }
 
-async function getPokemon(id) {
+async function getPokemon() {
   //fetch a pokemon
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error (`Response Status: ${response.status}`);
+  let pokemonList = [];
+  for (let i = 1; i < 21; i++)
+    {
+      let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error (`Response Status: ${response.status}`);
+        }
+        const pokemon = await response.json();
+        //console.log(pokemon.id , pokemon["sprites"]["front_default"]);
+        
+        pokemonList.push({
+          id : pokemon.id,
+          sprites : pokemon["sprites"]["front_default"]
+        })
+
+      } catch(error) {
+        console.log(error.message);
+      }
     }
-    const pokemon = await response.json();
-    console.log(pokemon);
-  } catch(error) {
-    console.log(error.message);
-  }
-  
+    return pokemonList
 }
 
 
