@@ -7,27 +7,33 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [listofPokemon, setPokemonList] = useState([]);
-  const [selectedCard, setCard] = useState("");
-
-  const selectCard = (id) => {
-    setCard(id);
-  }
+  const [selectedCard, setCard] = useState([]);
 
   const handleCardClick = async (id) => {
+
     await fetchPokemonData();
-    // if there is already an selected card, check if both match
-    if (selectedCard === "") {
-        setCard(id);
-      }
-    else if (selectedCard != id){ 
-      setScore(score + 1);
-      setCard(id);
-    }
-    else {
+
+    // Game mechanic
+    if (!selectedCard.includes(id)) {
+        let newArray = [...selectedCard, id];
+        setCard(newArray);
+        setScore(score + 1);
+
+        if (selectedCard.length === 20) {
+          setBestScore(score);
+          setScore(0)
+          setCard([])
+          alert("You Win")
+        }
+
+      } else {
       setBestScore(score);
       setScore(0);
+      setCard([]);
+      alert("You lose")
     }
-    
+    //Current the game only check if next click match the previous, 
+    // however i should save all the click into a list and check the list
     
   }
 
@@ -59,9 +65,9 @@ function App() {
 
   
    useEffect(() => {
-    console.log(listofPokemon);
+    //console.log(listofPokemon);
     console.log(selectedCard)
-  }, [listofPokemon, selectedCard]);
+  }, [selectedCard]);
   
   return (
     <div>
