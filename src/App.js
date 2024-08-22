@@ -19,7 +19,7 @@ function App() {
         setCard(newArray);
         setScore(score + 1);
 
-        if (selectedCard.length === 20) {
+        if (selectedCard.length === listofPokemon.length) {
           setBestScore(score);
           setScore(0)
           setCard([])
@@ -32,8 +32,6 @@ function App() {
       setCard([]);
       alert("You lose")
     }
-    //Current the game only check if next click match the previous, 
-    // however i should save all the click into a list and check the list
     
   }
 
