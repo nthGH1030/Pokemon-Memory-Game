@@ -2,12 +2,15 @@ const Card = ({id, sprites, onClick}) => {
     
 
     return (
-        <div>
-            <span onClick = {onClick}>
+        <div className = "rounded border-2 bg-transparent">
+            <div
+                className = "bg-slate-200 "
+                onClick = {onClick}>
                 <img src = {sprites} alt={`Pokemon ${id}`}/>
-                <p> ID: {id}</p>
-            </span>
-            
+            </div>
+            <p className = "bg-slate-200 "> 
+                ID: {id}
+            </p>
             
         </div>
     );
